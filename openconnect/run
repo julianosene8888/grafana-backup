@@ -1,0 +1,1 @@
+docker run -d --user root --cap-add NET_ADMIN --name openconnect --privileged -v $PWD/entrypoint.sh:/app/entrypoint.sh openconnect-alpine
