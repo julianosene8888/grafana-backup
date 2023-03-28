@@ -1,0 +1,22 @@
+{{ define "alert_list" }}{{ range . }}
+
+{{ range .Annotations.SortedPairs }}<strong>{{ .Name }}</strong>: {{ .Value }}
+
+{{ end }}
+
+—
+
+{{ end }}{{ end }}
+
+{{ define "telegram.report" }}
+{{ if gt (len .Alerts.Firing) 0 }}<strong>Sysmap Zeta - REPORT GPP OPERAÇÂO N2!!!</strong>
+
+{{ range .Alerts }}Report : {{ .StartsAt.Format "02-01-2006 15:04:05 GMT" }}
+Brasil GMT-03:00Hs
+{{ end }}
+{{ template "alert_list" .Alerts.Firing }}
+{{ if gt (len .Alerts.Resolved) 0 }}
+{{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}<strong>ZETA-ALERTA NORMALIZADO</strong>
+{{ range .Alerts }}Resolvido as :{{ .EndsAt.Format "02-01-2006 15:04:05 GMT Brasil -01:00Hs"}}{{ end }} 
+{{ template "alert_list" .Alerts.Resolved }}
+{{ end }}{{ end }}

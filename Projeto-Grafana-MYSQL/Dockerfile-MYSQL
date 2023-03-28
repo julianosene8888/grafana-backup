@@ -1,0 +1,19 @@
+FROM mysql:8.0.22
+
+RUN mkdir /var/lib/script
+
+WORKDIR /var/lib/script
+
+COPY /plugins/script/*.sh ./ 
+
+RUN chmod +x /var/lib/script/databaseConfig.sh
+
+RUN chmod +x /var/lib/script/databaseCreate.sh
+
+RUN chmod +x /var/lib/script/warehouseBackup.sh
+
+RUN  /var/lib/script/databaseConfig.sh
+
+EXPOSE 3310
+
+CMD ["mysqld"]

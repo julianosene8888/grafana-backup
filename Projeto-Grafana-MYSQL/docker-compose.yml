@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+
+  mysql:
+    restart: unless-stopped
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile-MYSQL
+    ports:
+      - 3310:3306
+    volumes:
+      - ./plugins/mysql:/var/lib/mysql
+      - ./plugins/mysqlBackup:/var/lib/mysqlBackup
+      - ./plugins/init/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=naturaGPP
+      - MYSQL_USER=naturaGPP
+      - MYSQL_PASSWORD=naturaGPP
+      - MYSQL_DATABASE=warehouseGPP
+
+  grafana:
+    restart: unless-stopped
+    image: grafana/grafana-oss
+    container_name: grafana-gpp
+    volumes:
+      - ./grafana:/var/lib/grafana
+      - ./plugins/init/grafana.ini:/etc/grafana/grafana.ini
+    network_mode: container:vpn-natura-gpp

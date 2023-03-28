@@ -1,0 +1,15 @@
+FROM node:bullseye as base
+
+WORKDIR /src/app
+
+COPY /ETL/package*.json ./
+
+RUN yarn install
+
+COPY /ETL/ .
+
+RUN chmod u+x /src/app/script/oraclelib.sh
+
+RUN /src/app/script/oraclelib.sh
+
+CMD ["yarn", "start"]

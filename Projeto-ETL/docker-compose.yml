@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+
+  etl-tableau:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile-TABLEAU
+    volumes:
+      - ./ETL:/src/app
+    environment:
+      - LD_LIBRARY_PATH=/opt/oracle/instantclient_21_8
+      - TNS_ADMIN=/opt/oracle/instantclient_21_8/network/admin
+    network_mode: service:vpn-natura-gpp
+
+  vpn-natura-gpp:
+    restart: unless-stopped
+    image: openconnect-alpine:latest
+    hostname: vpn-natura-gpp
+    container_name: vpn-natura-gpp
+    environment:
+      VPN_USER: 292117965
+      VPN_PASSWORD: 371306@Vi
+#      VPN_USER: 292108761
+#      VPN_PASSWORD: 875#HYew@
+      VPN_TUN: tun-natura
+      VPN_AUTHGROUP: NaturaMFA
+      VPN_SERVER_CERT: pmnCQjxdLqI2fQ90kSk0eiPZQcL1dMvSdw6o3Txb+gI=
+      VPN_SERVER_ADDR: vpn.natura.net
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    ports:
+      - 3004:3004
+      - 3005:3000
+      - 3006:3006
