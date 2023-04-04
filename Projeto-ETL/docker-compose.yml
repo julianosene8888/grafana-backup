@@ -20,10 +20,10 @@ services:
     hostname: vpn-natura-gpp
     container_name: vpn-natura-gpp
     environment:
-      VPN_USER: 292117965
-      VPN_PASSWORD: 371306@Vi
-#      VPN_USER: 292108761
-#      VPN_PASSWORD: 875#HYew@
+      VPN_USER: 
+      VPN_PASSWORD: 
+#      VPN_USER: 
+#      VPN_PASSWORD: 
       VPN_TUN: tun-natura
       VPN_AUTHGROUP: NaturaMFA
       VPN_SERVER_CERT: pmnCQjxdLqI2fQ90kSk0eiPZQcL1dMvSdw6o3Txb+gI=
